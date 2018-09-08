@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Lista De Votos</title>
+</h:head>
+<ui:composition template="/view/sistema/template/dashtemplate.xhtml">
+	<ui:define name="body">
+		<p:dataTable value="#{listaVotosBean.listVotos}" var="voto"
+			paginator="true" rows="10"
+			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+			rowsPerPageTemplate="5,10,15">
+			<p:column headerText="Id"  style="width:10%">
+				<h:outputText value="#{voto.id}" />
+			</p:column>
+
+			<p:column headerText="Funcionário"  style="width:30%">
+				<h:outputText value="#{voto.funcionario.nome}" />
+			</p:column>
+
+			<p:column headerText="Recurso"  style="width:30%">
+				<h:outputText value="#{voto.recurso.nome}" />
+			</p:column>
+
+			<p:column headerText="Data do voto"  style="width:30%">
+				<h:outputText value="#{voto.dataToStrig()}" />
+			</p:column>
+
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>
+</html>

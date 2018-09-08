@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:growl id="messages" showDetail="false" />
+		<header>
+			<p:menubar>
+				<p:menuitem value="Votar" action="#{menuBean.votar}" process="form"
+					update="form" icon="ui-icon-circle-plus" />
+				<p:menuitem value="Votos" action="#{menuBean.listaVotos()}"
+					icon="ui-icon-search" process="form" update="form" />
+				<f:facet name="options">
+					<p:outputLabel value="#{menuBean.funcionario.nome}" style="padding:0 20px"/>
+					<p:commandButton value="Logout" action="#{menuBean.logout}"
+						update="form" process="form" icon="ui-icon-extlink" />
+				</f:facet>
+			</p:menubar>
+		</header>
+	</h:form>
+
+	<ui:insert name="body" style="padding-top: 60px">
+	</ui:insert>
+</h:body>
+
+</html>

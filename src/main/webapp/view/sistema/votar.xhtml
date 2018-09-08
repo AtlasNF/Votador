@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/view/sistema/template/dashtemplate.xhtml">
+	<ui:define name="body">
+		<h:form id="formVotar" enctype="multipart/form-data">
+			<p:growl id="messages" showDetail="true" />
+			<p:dataTable id="recursosDT" var="recurso"
+				value="#{votarBean.recursos}" paginator="true" rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" selectionMode="single"
+				selection="#{votarBean.recursoSelected}" rowKey="#{recurso.id}">
+
+				<p:ajax event="rowSelect"
+					update=":formVotar:messages :formVoto:txtRecurso"
+					listener="#{votarBean.onRowSelect}" />
+
+				<p:column headerText="Id" style="width:10%">
+					<h:outputText value="#{recurso.id}" />
+				</p:column>
+
+				<p:column headerText="Nome" style="width:40%">
+					<h:outputText value="#{recurso.nome}" />
+				</p:column>
+
+				<p:column headerText="Descrição" style="width:40%">
+					<h:outputText value="#{recurso.descricao}" />
+				</p:column>
+
+				<p:column headerText="Votos" style="width:10%">
+					<h:outputText value="#{recurso.votos.size()}" />
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+
+		<p:separator />
+		<h:form id="formVoto" enctype="multipart/form-data">
+
+			<p:outputPanel columns="2" id="votarDetalhes">
+				<p:messages id="msg" showDetail="true" closable="true"/>
+					<h:panelGrid columns="2" columnClasses="label,value">
+
+						<p:outputLabel value="Nome do Funcionário:" />
+						<p:outputLabel value="#{votarBean.funcionario.nome}" />
+
+						<p:outputLabel value="Nome do Recurso" />
+						<p:outputLabel value="#{votarBean.recursoSelected.nome}"
+							id="txtRecurso" />
+
+						<p:outputLabel value="Comentário" />
+						<p:inputTextarea rows="5" cols="30" autoResize="false"
+							value="#{votarBean.voto.comentario}" required="true"
+							requiredMessage="É necéssario fazer um comentário sobre seu voto." />
+
+					</h:panelGrid>
+					<p:separator />
+					<p:commandButton value="Confirmar"
+						actionListener="#{votarBean.confrimarVoto}" update=":formVoto:msg :formVotar:recursosDT"></p:commandButton>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

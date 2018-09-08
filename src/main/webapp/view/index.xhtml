@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+</h:head>
+
+<h:body style="background-color: #93d8d5">
+	<h:form id="formLogin">
+		<div>
+			<p:panel header="Logar" style=" margin: auto; width: 500px">
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-2,ui-grid-col-10">
+					<h:outputLabel for="email" value="Email:" />
+					<p:inputText id="email" value="#{loginBean.email}"
+						style="width : 350px" required="true"
+						requiredMessage="Email não informado!" />
+
+					<h:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" value="#{loginBean.senha}"
+						style="width : 350px" required="true"
+						requiredMessage="Senha não informada!" />
+
+
+					<f:facet name="footer">
+						<p:commandButton value="Login" action="#{loginBean.logar}"
+							update="@form" process="@form">
+							<p:ajaxStatus onstart="PF('statusDialog').show()"
+								onsuccess="PF('statusDialog').hide()" />
+						</p:commandButton>
+					</f:facet>
+				</p:panelGrid>
+
+			</p:panel>
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage value="/view/images/gif-loading.gif" width="30px"
+					height="30px" />
+			</p:dialog>
+		</div>
+	</h:form>
+	
+	
+	
+</h:body>
+
+</html>
